@@ -7,10 +7,8 @@ class Processor {
 
   // Declare any necessary private members
  private:
- long totalJiffiesStart = 0; 
- long activeJiffiesStart = 0; 
- long totalJiffiesEnd = 0; 
- long activeJiffiesEnd = 0; 
+ long totalJiffies = 0; 
+ long activeJiffies = 0; 
  
 };
 
