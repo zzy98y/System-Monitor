@@ -263,7 +263,7 @@ string LinuxParser::Uid(int pid) {
     while(std::getline(filestream,line)) {
     std::istringstream linestream(line);
     linestream >> key >> value;
-    if (key == "Uid") {
+    if (key == "Uid:") {
       return value;
     }
   }
@@ -285,13 +285,13 @@ string LinuxParser::User(int pid) {
     std::replace(line.begin(),line.end(),'x',' ');
     std::istringstream linestream(line);
     if (linestream >> key >> value) {
-      if (key == uid) {
-        return value;
+      if (value == uid) {
+        return key;
       }
     }
   }
   
-  return value; 
+  return key; 
   }
 
 // Read and return the uptime of a process
@@ -299,6 +299,7 @@ long LinuxParser::UpTime(int pid) {
   string key;
   string line; 
   long value;
+  long upTimePid;
   std::ifstream filestream(kProcDirectory + to_string(pid) + kStatFilename);
   if (filestream.is_open()) {
     while(std::getline(filestream,line)) {
@@ -308,12 +309,12 @@ long LinuxParser::UpTime(int pid) {
     }
 
     linestream >> value; 
-    value = value / sysconf(_SC_CLK_TCK);
+    upTimePid = LinuxParser::UpTime() - (value / sysconf(_SC_CLK_TCK));
 
   } 
   }
   
-  return value; }
+  return upTimePid; }
 
 
 
