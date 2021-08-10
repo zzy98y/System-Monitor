@@ -243,7 +243,7 @@ string LinuxParser::Ram(int pid) {
       while(std::getline(filestream, line)) {
       std::istringstream linestream(line);
       while (linestream >> key >> value) {
-        if (key == "VmSize:") {
+        if (key == "VmRSS:") {
          ram << std::fixed << value/ 1000;
          return ram.str();
         }
