@@ -20,8 +20,7 @@ float Process::CpuUtilization() {
     long totalTime = LinuxParser::ActiveJiffies(pid_);
     long startTime = LinuxParser::UpTime(pid_);
     long upTime = LinuxParser::UpTime();
-    long second = upTime - (startTime/sysconf(_SC_CLK_TCK));
-    return (totalTime / sysconf(_SC_CLK_TCK)) / second;
+    return (totalTime / sysconf(_SC_CLK_TCK)) / upTime;
      }
 
 // Return the command that generated this process
