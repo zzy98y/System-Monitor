@@ -22,12 +22,19 @@ Processor& System::Cpu() { return cpu_; }
 vector<Process>& System::Processes() { 
     vector<int> pids = LinuxParser::Pids();
     processes_.clear();
+    value_processes_.clear();
     for (int pid:pids) {
         processes_.emplace_back(Process(pid));
 
     }
+    for (Process process : processes_) {
+        if (process.Ram() != "0.0") {
+            value_processes_.push_back(process);
+        }
+    }
+
     
-    return processes_; }
+    return value_processes_; }
 
 // Return the system's kernel identifier (string)
 std::string System::Kernel() { return LinuxParser::Kernel(); }
